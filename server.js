@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 
 if (process.env.AWS_BUCKET_NAME) {
-  process.env.S3_BUCKET_NAME = process.env.AWS_BUCKET_NAME
+  process.env.S3_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 }
 
 var prerender = require('./lib');
+var healthcheck = require('./healthcheck');
 
 var server = prerender({
   workers: process.env.PRERENDER_NUM_WORKERS,
   iterations: process.env.PRERENDER_NUM_ITERATIONS
 });
+
+server.use(healthcheck);
 
 server.use(prerender.sendPrerenderHeader());
 server.use(prerender.removeScriptTags());

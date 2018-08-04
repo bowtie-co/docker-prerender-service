@@ -7,6 +7,6 @@ ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 RUN git clone --depth 1 https://github.com/prerender/prerender.git -b phantomjs /usr/src/app/
 RUN npm install && npm cache clean --force
-COPY server.js .
+COPY . .
 CMD [ "npm", "start" ]
 EXPOSE 80
