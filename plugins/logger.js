@@ -1,5 +1,5 @@
 module.exports = {
-  tabCreated: function(phantom, req, res, next) {
+  tabCreated: function(req, res, next) {
       req.prerender.page.run(function() {
 
         this.onConsoleMessage = function(msg) {
