@@ -37,4 +37,4 @@ RUN groupadd --system chrome && \
 
 USER chrome
 
-CMD [ "npm", "start" ]
+CMD [ "dumb-init", "npm", "start" ]
