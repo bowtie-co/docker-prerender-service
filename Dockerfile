@@ -36,8 +36,6 @@ RUN groupadd --system chrome && \
 
 USER chrome
 
-ENV PORT 80
-
 CMD [ "dumb-init", "npm", "start" ]
 
-EXPOSE 80
+EXPOSE 3000
