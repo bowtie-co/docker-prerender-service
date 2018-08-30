@@ -9,7 +9,8 @@ var healthcheck = require('./healthcheck');
 
 var server = prerender({
   workers: process.env.PRERENDER_NUM_WORKERS,
-  iterations: process.env.PRERENDER_NUM_ITERATIONS
+  iterations: process.env.PRERENDER_NUM_ITERATIONS,
+  chromeFlags: [ '--no-sandbox', '--headless', '--disable-gpu', '--remote-debugging-port=9222', '--hide-scrollbars' ]
 });
 
 server.use(healthcheck);
@@ -34,10 +35,10 @@ if (process.env.VERBOSE) {
   server.use(prerender.logger());
 }
 
-if (process.env.S3_BUCKET_NAME) {
+// if (process.env.S3_BUCKET_NAME) {
   server.use(prerender.s3HtmlCache());
-} else if (process.env.IN_MEMORY_CACHE) {
-  server.use(prerender.inMemoryHtmlCache());
-}
+// } else if (process.env.IN_MEMORY_CACHE) {
+  // server.use(prerender.inMemoryHtmlCache());
+// }
 
 server.start();
