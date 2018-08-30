@@ -5,7 +5,6 @@ if (process.env.AWS_BUCKET_NAME) {
 }
 
 var prerender = require('./lib');
-var healthcheck = require('./healthcheck');
 
 var server = prerender({
   workers: process.env.PRERENDER_NUM_WORKERS,
@@ -13,7 +12,7 @@ var server = prerender({
   chromeFlags: [ '--no-sandbox', '--headless', '--disable-gpu', '--remote-debugging-port=9222', '--hide-scrollbars' ]
 });
 
-server.use(healthcheck);
+server.use(prerender.healthCheck());
 
 server.use(prerender.sendPrerenderHeader());
 server.use(prerender.removeScriptTags());

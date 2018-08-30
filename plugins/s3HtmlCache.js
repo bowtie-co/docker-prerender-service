@@ -13,12 +13,12 @@ module.exports = {
             return next();
         }
 
-        this.cache.get(req.prerender.url, function (err, result) {
-            if(err) console.error(err);
+        this.cache.get(req.prerender.url, function (err, data) {
+            if(err) console.error(err, err.stack);
 
-            if (!err && result) {
+            if (!err && data) {
                 console.log('cache hit');
-                return res.send(200, result.Body);
+                return res.send(200, data.Body);
             }
             
             next();
@@ -26,8 +26,8 @@ module.exports = {
     },
 
     beforeSend: function(req, res, next) {
-        this.cache.set(req.prerender.url, req.prerender.documentHTML, function(err, result) {
-            if (err) console.error(err);
+        this.cache.set(req.prerender.url, req.prerender.documentHTML, function(err, data) {
+            if (err) console.error(err, err.stack);
         });
         next();
     }

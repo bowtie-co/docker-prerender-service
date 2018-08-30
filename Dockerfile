@@ -26,9 +26,8 @@ RUN npm i -g npm@latest
 RUN git clone --depth 1 https://github.com/prerender/prerender.git /usr/src/app/
 RUN npm install && npm cache clean --force && npm install cache-manager aws-sdk
 
-COPY s3HtmlCache.js ./lib/plugins
-COPY server.js .
-COPY healthcheck.js .
+COPY ./plugins/* ./lib/plugins/
+COPY . .
 
 RUN groupadd --system chrome && \
     useradd --system --create-home --gid chrome --groups audio,video chrome && \
