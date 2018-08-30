@@ -39,6 +39,6 @@ if (process.env.S3_BUCKET_NAME) {
   server.use(prerender.s3HtmlCache());
 } else if (process.env.IN_MEMORY_CACHE) {
   server.use(prerender.inMemoryHtmlCache());
-// }
+}
 
 server.start();
