@@ -28,8 +28,8 @@ module.exports = {
     beforeSend: function(req, res, next) {
         this.cache.set(req.prerender.url, req.prerender.documentHTML, function(err, data) {
             if (err) console.error(err, err.stack);
+            next();
         });
-        next();
     }
 };
 
