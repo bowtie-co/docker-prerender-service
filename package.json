@@ -1,0 +1,26 @@
+{
+  "name": "docker-prerender-service",
+  "version": "1.0.0",
+  "description": "Chrome prerender docker service",
+  "main": "server.js",
+  "dependencies": {
+    "prerender": "^5.4.4",
+    "prerender-aws-s3-cache": "^1.0.0",
+    "prerender-memory-cache": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bowtie-co/docker-prerender-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bowtie-co/docker-prerender-service/issues"
+  },
+  "homepage": "https://github.com/bowtie-co/docker-prerender-service#readme"
+}

@@ -4,15 +4,14 @@ if (process.env.AWS_BUCKET_NAME) {
   process.env.S3_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
 }
 
-var prerender = require('./lib');
+const prerender = require('prerender');
+const healthcheck = require('./healthCheck');
 
 var server = prerender({
-  workers: process.env.PRERENDER_NUM_WORKERS,
-  iterations: process.env.PRERENDER_NUM_ITERATIONS,
   chromeFlags: [ '--no-sandbox', '--headless', '--disable-gpu', '--remote-debugging-port=9222', '--hide-scrollbars' ]
 });
 
-server.use(prerender.healthCheck());
+server.use(healthcheck);
 
 server.use(prerender.sendPrerenderHeader());
 server.use(prerender.removeScriptTags());
@@ -30,14 +29,10 @@ if (process.env.BLACKLISTED_DOMAINS) {
   server.use(prerender.blacklist());
 }
 
-if (process.env.VERBOSE) {
-  server.use(prerender.logger());
-}
-
 if (process.env.S3_BUCKET_NAME) {
-  server.use(prerender.s3HtmlCache());
+  server.use(require('prerender-aws-s3-cache'));
 } else if (process.env.IN_MEMORY_CACHE) {
-  server.use(prerender.inMemoryHtmlCache());
+  server.use(require('prerender-memory-cache'));
 }
 
 server.start();
